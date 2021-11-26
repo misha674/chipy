@@ -1,82 +1,17 @@
 <?php 
 // Массив доступных для выбора языков
-$langArray = array("tr","gr","no","pt","kz","ro","de","fi","es","fr","en");
+$langArray = array("tr","gr","no","pt","kz","ro","de","fi","es","fr","en", "ru");
 
-// Массив регионов для отображения дополнительного попапа
-$infoPopUp = array("fi","de","ro","gr","pt"); 
-
-// Получение IP клиента
-$client  = @$_SERVER['HTTP_CLIENT_IP'];
-$forward = @$_SERVER['HTTP_X_FORWARDED_FOR'];
-$remote  = @$_SERVER['REMOTE_ADDR'];
-$region  = array('country'=>'', 'city'=>'');
- 
-// Проверка и присвоение IP в зависимости от работы через прокси или на прямую
-if(filter_var($client, FILTER_VALIDATE_IP)) $ip = $client;
-elseif(filter_var($forward, FILTER_VALIDATE_IP)) $ip = $forward;
-else $ip = $remote;
- 
-// Передача ip в плагин для получение региона
-$ip_data = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=".$ip));    
-if($ip_data && $ip_data->geoplugin_countryName != null)
-{
-    $region = $ip_data->geoplugin_countryCode;
-    $region = mb_strtolower($region);
-}
+include '../__LOCALISATIONS__/processingLang.php';
+include '../__LOCALISATIONS__/processingRegion.php';
+include '../__LINKS__/rootURL.php';
 
 
+$regionLang = $_COOKIE['lang_region'] ?? null;
 
-if($region == "ca") {
-  $region = "fr";
-} elseif ($region == "ar") {
-  $region = "es";
-} elseif ($region == "us") {
-  $region = "fi";
-} elseif ($region == "in") {
-  $region = "pt";
-}
-
-// получение значения языка из cookie
-$langCookie = $_COOKIE['lang_region'];
-
-// функция записи в cookie
-function set_cookie($region)
-{
-  setcookie("lang_region", $region, time() + 3600*24*30, "/"); 
+if($regionLang != $region) {
+  setcookie('lang_region', $region, time() + 3600*24*30, '/'); 
 };
-
-// если значение языка из cookie не пустое и не совпадает со значением региона - перезаписываем его в cookie
-if($langCookie && $langCookie != $region) {
-  set_cookie($region);
-  $langCookie = $region;
-} elseif (empty($langCookie)) {
-  set_cookie($region);
-  $langCookie = $region;
-};
-
-// Получаем значение переменной lang из URL
-$langUrl = $_GET['lang'];
-
-// проверяем наличие в URL значения языка и присутствует ли он в массиве возможных языков, если есть то используем ее
-if($langUrl && in_array($langUrl, $langArray)):
-  // задаем язык сайту
-  $contentLang = $langUrl;
-// если url пуст получаем значение из cookie и проверяем его на присутствие в массиве возможных языков
-elseif($langCookie && in_array($langCookie, $langArray)): 
-  $contentLang = $langCookie;
-// во всех других случаях 
-else:
-  // default значение для языка сайта
-  $contentLang = 'en';
-endif;
-
-// Подлключение файла локализации в зависимости от языка
-include_once ("languages/lang-".$contentLang.".php");
-
-
-// Обработчик отображения контента на сайте в зависимости от региона
-// присваиваю переменной contentVisibility ключ первого найденного элемента в случае успешного выполнения ф-и  array_search, которая ищет в arrContentVisibility значение region.
-$infoPopUp = in_array($region, $infoPopUp);
 
 ?>
 <!DOCTYPE html>
@@ -86,8 +21,18 @@ $infoPopUp = in_array($region, $infoPopUp);
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/main.css?v=1.0.29">
+  <link rel="stylesheet" href="css/main.css?v=1.0.27">
+  <link rel="shortcut icon" href="Favicon.ico" type="image/x-icon">
   <title>CASINO</title>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CSC77FK655"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CSC77FK655');
+</script>
 </head>
 
 <!-- <body class="loader"> -->
@@ -613,15 +558,13 @@ $infoPopUp = in_array($region, $infoPopUp);
       </div>
       <div class="langCheck">
         <div class="langCheck__wrapper">
-
-        <?php include '../__LOCALISATIONS__/langSwitcher.php'?>                
+      
+         <?php include "../__LOCALISATIONS__/langSwitcher.php"?>
 
         </div>
       </div>
     </header>
     <section class="content">
-      <h1 style="font-size: 40px; text-align: center; color: red; text-transform: uppercase;"> this region: " --
-        <?= $region ?> -- "</h1>
       <div class="top-text lng-spin"><?= $local["title_text_1"] ?></div>
       <div class="bottom-text orange-text"> <span class="margin-text lng-getBonus"><?= $local["title_text_2"] ?></span>
       </div>
@@ -1137,8 +1080,8 @@ $infoPopUp = in_array($region, $infoPopUp);
     <div class="popUp__content">
       +1500$ 150FS
     </div>
-    <a class="btn popUp__btn <?= ($infoPopUp ? "openInfoPopUp" : " ") ?>"
-      href="<?= ($infoPopUp ? "#" : "https://betandyou.com/ru/registration/") ?>">
+    <a class="btn popUp__btn <?= ($contentVisibility ? "openInfoPopUp" : "target-btn") ?>"
+      href="<?= ($contentVisibility ? "#" : $rootURL . "/registration/?") ?>">
       <span class="orange-text">
         <?= $local["winPopUp_btn"] ?>
       </span>
@@ -1470,13 +1413,27 @@ $infoPopUp = in_array($region, $infoPopUp);
     <video class="popUp__instruction" autoplay loop>
       <source src="img/reg.mp4">
     </video>
-    <a class="btn popUp__btn lng-popUpBtn" href="https://betandyou.com/registration/?no_fast_reg=1">
+    <a class="btn popUp__btn lng-popUpBtn target-btn" href="<?= $rootURL ?>/registration/?no_fast_reg=1/?">
       <span class="orange-text">
         <?= $local["infoPopUp_btn"] ?>
       </span>
     </a>
   </div>
 </div>
-<script defer src="js/main.js?v=1.0.9"></script>
-
+<script defer src="js/main.js?v=1.0.10"></script>
+<?php   
+  $currentURL = "https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+  $parsedURL = parse_url($currentURL);
+  $current_query = $parsedURL['query'];
+  if ( !empty( $current_query ) ) { ?>
+    <script>
+        let PARAM_NAME = '<?php echo $local['reg_tag'] . $current_query ?>';
+        let targetBtn = document.querySelectorAll('.target-btn');           
+          targetBtn.forEach(function (currentElem) {
+          href = currentElem.getAttribute('href');
+          currentElem.setAttribute('href', href + PARAM_NAME);
+          });
+        
+    </script> 
+<?php } ?> 
 </html>

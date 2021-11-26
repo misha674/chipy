@@ -1,14 +1,6 @@
 "use strict";
 
 document.addEventListener("DOMContentLoaded", function () {
-  // определение языка указанного в ссылке
-  var localLang = localStorage.getItem("lang");
-  var language = localLang
-    ? localLang
-    : window.navigator.language ||
-    window.navigator.systemLanguage ||
-    window.navigator.userLanguage;
-  language = language.substr(0, 2).toLowerCase();
   //  SWHITCH LOCALISATION  SWHITCH LOCALISATION  SWHITCH LOCALISATION
 
   var swhithLang = document.querySelectorAll(
@@ -17,12 +9,11 @@ document.addEventListener("DOMContentLoaded", function () {
   swhithLang.forEach(function (item) {
     item.addEventListener("change", function () {
       var val = item.name;
-      window.location.href = window.location.pathname + "?lang=" + val;
       location.reload();
-      language = val;
-      localStorage.setItem("lang", language);
+      document.cookie = `content_lang=${val}; max-age=3600`;
     });
   });
+
   //  SWHITCH LOCALISATION  SWHITCH LOCALISATION  SWHITCH LOCALISATION
 
   function getCookie(name) {
@@ -35,12 +26,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   var language = getCookie('lang_region');
 
-  console.log("REGION:" + language);
   var prizes;
 
   if (language == "fr") {
-    prizes = [
-      {
+    prizes = [{
         text: "3500 С$",
         color: "rgb(224, 0, 59)",
         textColor: "yellowText",
@@ -105,8 +94,7 @@ document.addEventListener("DOMContentLoaded", function () {
       },
     ];
   } else if (language == "fi") {
-    prizes = [
-      {
+    prizes = [{
         text: "+1500€",
         color: "rgb(224, 0, 59)",
         textColor: "yellowText",
@@ -168,8 +156,7 @@ document.addEventListener("DOMContentLoaded", function () {
       },
     ];
   } else if (language == "de") {
-    prizes = [
-      {
+    prizes = [{
         text: "+1500€",
         color: "rgb(224, 0, 59)",
         textColor: "yellowText",
@@ -231,8 +218,7 @@ document.addEventListener("DOMContentLoaded", function () {
       },
     ];
   } else if (language == "nz") {
-    prizes = [
-      {
+    prizes = [{
         text: "+2400 NZ$",
         color: "rgb(224, 0, 59)",
         textColor: "yellowText",
@@ -294,8 +280,7 @@ document.addEventListener("DOMContentLoaded", function () {
       },
     ];
   } else if (language == "ar" || language == "es") {
-    prizes = [
-      {
+    prizes = [{
         text: "+170 000 ARS",
         color: "rgb(224, 0, 59)",
         textColor: "yellowText",
@@ -365,8 +350,7 @@ document.addEventListener("DOMContentLoaded", function () {
       },
     ];
   } else if (language == "ro") {
-    prizes = [
-      {
+    prizes = [{
         text: "+7400 RON",
         color: "rgb(224, 0, 59)",
         textColor: "yellowText",
@@ -428,8 +412,7 @@ document.addEventListener("DOMContentLoaded", function () {
       },
     ];
   } else if (language == "kz") {
-    prizes = [
-      {
+    prizes = [{
         text: "+750 000₸",
         color: "rgb(224, 0, 59)",
         textColor: "yellowText",
@@ -494,8 +477,7 @@ document.addEventListener("DOMContentLoaded", function () {
       },
     ];
   } else if (language == "ph") {
-    prizes = [
-      {
+    prizes = [{
         text: "+88 000₱",
         color: "rgb(224, 0, 59)",
         textColor: "yellowText",
@@ -557,8 +539,7 @@ document.addEventListener("DOMContentLoaded", function () {
       },
     ];
   } else if (language == "my") {
-    prizes = [
-      {
+    prizes = [{
         text: "+7200 MYR",
         color: "rgb(224, 0, 59)",
         textColor: "yellowText",
@@ -621,8 +602,7 @@ document.addEventListener("DOMContentLoaded", function () {
       },
     ];
   } else if (language == "pt") {
-    prizes = [
-      {
+    prizes = [{
         text: "+1500€",
         color: "rgb(224, 0, 59)",
         textColor: "yellowText",
@@ -687,8 +667,7 @@ document.addEventListener("DOMContentLoaded", function () {
       },
     ];
   } else if (language == "no") {
-    prizes = [
-      {
+    prizes = [{
         text: "+15 000 NKr",
         color: "rgb(224, 0, 59)",
         textColor: "yellowText",
@@ -751,8 +730,7 @@ document.addEventListener("DOMContentLoaded", function () {
       },
     ];
   } else if (language == "gr") {
-    prizes = [
-      {
+    prizes = [{
         text: "+1500€",
         color: "rgb(224, 0, 59)",
         textColor: "yellowText",
@@ -817,8 +795,7 @@ document.addEventListener("DOMContentLoaded", function () {
       },
     ];
   } else if (language == "tr") {
-    prizes = [
-      {
+    prizes = [{
         text: "+17 000₺",
         color: "rgb(224, 0, 59)",
         textColor: "yellowText",
@@ -879,9 +856,73 @@ document.addEventListener("DOMContentLoaded", function () {
         textColor: "redText",
       },
     ];
-  } else {
-    prizes = [
+  } else if (language == "ua") {
+    prizes = [{
+        text: "+45 000₴",
+        color: "rgb(224, 0, 59)",
+        textColor: "yellowText",
+      },
       {
+        text: "+3 700₴",
+        color: "rgba(0, 0, 0, 0)",
+        textColor: "redText",
+      },
+      {
+        text: "+50FS",
+        color: "rgb(224, 0, 59)",
+        textColor: "yellowText",
+      },
+      {
+        text: "Попробуй еще",
+        color: "rgba(0, 0, 0, 0)",
+        textColor: "redText",
+        smallText: "small-text",
+      },
+      {
+        text: "+100FS",
+        color: "rgb(224, 0, 59)",
+        textColor: "yellowText",
+      },
+      {
+        text: "+45 000₴ + 50FS",
+        color: "rgba(0, 0, 0, 0)",
+        textColor: "redText",
+      },
+      {
+        text: "15 000₴",
+        color: "rgb(224, 0, 59)",
+        textColor: "yellowText",
+      },
+      {
+        text: "Попробуй еще",
+        color: "rgba(0, 0, 0, 0)",
+        textColor: "redText",
+        smallText: "small-text",
+      },
+      {
+        text: "+150 FS",
+        color: "rgb(224, 0, 59)",
+        textColor: "yellowText",
+      },
+      {
+        text: "+3 000₴",
+        color: "rgba(0, 0, 0, 0)",
+        textColor: "redText",
+      },
+      {
+        text: "+15 000₴",
+        color: "rgb(224, 0, 59)",
+        textColor: "yellowText",
+      },
+      {
+        text: "Попробуй еще",
+        color: "rgba(0, 0, 0, 0)",
+        textColor: "redText",
+        smallText: "small-text",
+      },
+    ];
+  } else {
+    prizes = [{
         text: "+1500€",
         color: "rgb(224, 0, 59)",
         textColor: "yellowText",
@@ -994,10 +1035,10 @@ document.addEventListener("DOMContentLoaded", function () {
       spinner.insertAdjacentHTML(
         "beforeend", // текст при этом уже оформлен нужными стилями
         '<li class="prize" style="--rotate: '
-          .concat(rotation, 'deg">\n         <div class="text ')
-          .concat(textColor, " ")
-          .concat(smallText ? smallText : "", '">\n           ')
-          .concat(text, "\n         </div>         \n       </li>")
+        .concat(rotation, 'deg">\n         <div class="text ')
+        .concat(textColor, " ")
+        .concat(smallText ? smallText : "", '">\n           ')
+        .concat(text, "\n         </div>         \n       </li>")
       );
     });
   };
@@ -1009,13 +1050,13 @@ document.addEventListener("DOMContentLoaded", function () {
       "style",
       "background: conic-gradient(\n     from -90deg,\n     ".concat(
         prizes // получаем цвет текущего сектора
-          .map(function (_ref2, i) {
-            var color = _ref2.color;
-            return ""
-              .concat(color, " 0 ")
-              .concat((100 / prizes.length) * (prizes.length - i), "%");
-          })
-          .reverse(),
+        .map(function (_ref2, i) {
+          var color = _ref2.color;
+          return ""
+            .concat(color, " 0 ")
+            .concat((100 / prizes.length) * (prizes.length - i), "%");
+        })
+        .reverse(),
         "\n   );"
       )
     );

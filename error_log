@@ -1,0 +1,19 @@
+[18-Nov-2021 08:21:57 UTC] PHP Fatal error:  Uncaught Error: Function name must be a string in /home/betandy1/public_html/betandyou.info/casinofdb/index.php:1504
+Stack trace:
+#0 {main}
+  thrown in /home/betandy1/public_html/betandyou.info/casinofdb/index.php on line 1504
+[18-Nov-2021 08:22:09 UTC] PHP Fatal error:  Uncaught Error: Function name must be a string in /home/betandy1/public_html/betandyou.info/casinofdb/index.php:1504
+Stack trace:
+#0 {main}
+  thrown in /home/betandy1/public_html/betandyou.info/casinofdb/index.php on line 1504
+[18-Nov-2021 08:22:41 UTC] PHP Fatal error:  Uncaught Error: Function name must be a string in /home/betandy1/public_html/betandyou.info/casinofdb/index.php:1505
+Stack trace:
+#0 {main}
+  thrown in /home/betandy1/public_html/betandyou.info/casinofdb/index.php on line 1505
+[22-Nov-2021 11:03:19 UTC] PHP Parse error:  syntax error, unexpected '<' in /home/betandy1/public_html/betandyou.info/casinofdb/index.php on line 1171
+[22-Nov-2021 11:03:24 UTC] PHP Parse error:  syntax error, unexpected '<' in /home/betandy1/public_html/betandyou.info/casinofdb/index.php on line 1171
+[22-Nov-2021 11:03:29 UTC] PHP Parse error:  syntax error, unexpected '<' in /home/betandy1/public_html/betandyou.info/casinofdb/index.php on line 1171
+[22-Nov-2021 11:03:32 UTC] PHP Parse error:  syntax error, unexpected '<' in /home/betandy1/public_html/betandyou.info/casinofdb/index.php on line 1171
+[22-Nov-2021 11:03:42 UTC] PHP Parse error:  syntax error, unexpected '<' in /home/betandy1/public_html/betandyou.info/casinofdb/index.php on line 1171
+[22-Nov-2021 11:03:55 UTC] PHP Parse error:  syntax error, unexpected '<' in /home/betandy1/public_html/betandyou.info/casinofdb/index.php on line 1171
+[22-Nov-2021 11:04:22 UTC] PHP Parse error:  syntax error, unexpected '<' in /home/betandy1/public_html/betandyou.info/casinofdb/index.php on line 1171
